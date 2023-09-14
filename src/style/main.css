@@ -23,7 +23,7 @@
 .navbar-nav {
   display: flex;
   flex-direction: row;
-  padding-inline-end: 50px;
+  padding-inline-end: 70px;
 }
 .dropdown-item{  
   padding-top: 10px;

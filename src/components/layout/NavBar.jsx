@@ -29,7 +29,7 @@ const NavBar = () => {
             aria-haspopup="true"
             aria-expanded="false"
           >
-          PRODUCTOS
+            PRODUCTOS
           </a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
             <a className="dropdown-item" href=".">
@@ -55,8 +55,12 @@ const NavBar = () => {
             CONTACTO
           </a>
         </li>
+        <li className="nav-item">
+          <a className="nav-link" href=".">
+            <CartWidget />
+          </a>
+        </li>
       </ul>
-      <CartWidget />
     </nav>
   );
 };
