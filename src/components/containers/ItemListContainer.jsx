@@ -1,7 +1,9 @@
 import React from "react";
+import ItemList from "./ItemList";
 
 const ItemListContainer = ({ greeting }) => {
   return (
+    <>
     <div
       style={{
         color: "rgb(93, 37, 146)",
@@ -12,8 +14,12 @@ const ItemListContainer = ({ greeting }) => {
         backgroundSize: "cover",
       }}
     >
-      <h1>{greeting}</h1>
+      <h3>{greeting}</h3>
+      
+      <ItemList/>
+      
     </div>
+    </>
   );
 };
 

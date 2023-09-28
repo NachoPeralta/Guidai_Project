@@ -1,5 +1,4 @@
 import React from "react";
-import imgLogoHome from "../img/logo4.png";
 
 const Home = () => {
   return (
@@ -13,19 +12,19 @@ const Home = () => {
       }}
     >
       <img
-        src={imgLogoHome}
+        src="https://i.postimg.cc/zDwbFpTM/logo4.png"
         alt="Imagen de bienvenida"
         style={{
           display: "block",
           margin: "auto",
-          maxWidth: "40%",
-          paddingTop: "5%",
+          maxWidth: "40%",          
         }}
       ></img>
       <p
       style={{
         fontSize: '25px',
         color: 'black',
+        paddingTop: '5%'
       }}
       >
         Somos una empresa dedicada a la venta de velas artesanales, inciensos y

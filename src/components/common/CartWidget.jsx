@@ -1,16 +1,15 @@
-import React from 'react';
-import imgCarrito from '../../img/carrito-icon.png';
+import React from "react";
+
 
 const CartWidget = () => {
   return (
+    <>
     <div className="carrito-container">
-      <a href="./">
-        <button className="carrito-btn" id="carritoBtn">
-          <img src={imgCarrito} alt="Carrito de compras" />
-          4
-        </button>
-      </a>
+      <button className="carrito-btn" id="carritoBtn">
+        <img src="https://i.postimg.cc/LXLq73wJ/carrito-icon.png" alt="Carrito de compras" />4
+      </button>
     </div>
+    </>
   );
 };
 

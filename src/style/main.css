@@ -62,3 +62,9 @@
   height: 50px;
   vertical-align: middle;
 }
+
+/********* PRODUCTOS **********/
+
+.card-img-top {
+  width: 60%;
+}

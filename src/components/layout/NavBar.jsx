@@ -1,64 +1,61 @@
 import React from "react";
-import logoGuidai from "../../img/logo2.png";
-import CartWidget from "../common/CartWidget";
 import "../../style/main.css";
+import CartWidget from "../common/CartWidget";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <nav className="navbar" id="navbar">
-      <a className="logo" href="index">
-        <img id="imgLogo" src={logoGuidai} alt="Logo" />
-      </a>
+      <NavLink className="logo" to="/">
+        <img
+          id="imgLogo"
+          src="https://i.postimg.cc/y8Gk8GzJ/logo2.png"
+          alt="Logo"
+        />
+      </NavLink>
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" href="index.html">
+          <NavLink className="nav-link" to="/">
             INICIO
-          </a>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href=".">
-            ACERCA DE NOSOTROS
-          </a>
+          <NavLink className="nav-link" to="/products" role="button">
+            TODOS LOS PRODUCTOS
+          </NavLink>
         </li>
-        <li className="nav-item dropdown">
-          <a
-            className="nav-link dropdown-toggle"
-            href="./#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
+        <li className="nav-item">
+          <NavLink
+            className="nav-link" to="/products/categoria/Velas Aromaticas"
           >
-            PRODUCTOS
-          </a>
-          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a className="dropdown-item" href=".">
-              Velas Aromaticas
-            </a>
-            <a className="dropdown-item" href=".">
-              Bombas de limpieza
-            </a>
-            <a className="dropdown-item" href=".">
-              Inciensos
-            </a>
-            <a className="dropdown-item" href=".">
-              Aceites
-            </a>
-            <div className="dropdown-divider"></div>
-            <a className="dropdown-item" href=".">
-              Mostrar Todos
-            </a>
-          </div>
+            Velas Aromaticas
+          </NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href=".">
-            CONTACTO
-          </a>
+          <NavLink
+            className="nav-link"
+            to="/products/categoria/Bombas de limpieza"
+          >
+            Bombas de Limpieza
+          </NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href=".">
+          <NavLink
+            className="nav-link" to="/products/categoria/Inciensos">
+            Inciensos
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            className="nav-link" to="/products/categoria/Aceites">
+            Aceites
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            className="nav-link" to="/cart">
             <CartWidget />
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>
