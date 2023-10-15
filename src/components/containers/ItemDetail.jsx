@@ -1,13 +1,13 @@
 import React from "react";
+import { useCart } from "../../context/cart";
 import ItemCount from "../containers/ItemCount";
 
-const ItemDetail = (props) => {
-  //console.log(props);
-  const { categoria, descripcionLarga, descripcionCorta, precio, stock, img } =
-    props;
+const ItemDetail = (producto) => {
+  const { categoria, descripcionLarga, descripcionCorta, precio, stock, img } = producto;
+  const { agregarAlCarrito } = useCart();
 
   const onAdd = (cantidad) => {
-    alert(`Compraste ${cantidad} items`);
+    agregarAlCarrito({ ...producto, cantidad });
   };
 
   return (
