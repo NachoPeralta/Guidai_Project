@@ -1,40 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { productos } from "../../data/data";
 import Item from "./Item";
 import { useParams } from "react-router-dom";
+import { productServices } from "../../services/products";
 
 const ItemList = () => {
   const [loadedProductos, setLoadedProductos] = useState([]);
   const { categoria } = useParams();
 
   useEffect(() => {
-    const cargarProductos = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(productos);
-      }, 2000);
-    });
-
-    cargarProductos
-      .then((res) => {
+    const cargarProductos = async () => {
+      try {
         if (categoria) {
-          const productosFiltrados = res.filter(
-            (item) => item.categoria === categoria
-          );
-          setLoadedProductos(productosFiltrados);
+          const productos = await productServices.getProductosCategoria(categoria);
+          setLoadedProductos(productos);
         } else {
-          setLoadedProductos(res);
+          const productos = await productServices.getProductos();
+          setLoadedProductos(productos);
         }
-      })
-      .catch((err) => {
-        console.log("Error:", err);
-      });
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+
+    cargarProductos();
   }, [categoria]);
 
   return (
     <div>
       <div>
         {loadedProductos.map((producto) => (
-          <Item key={producto.codigo} producto={producto} />
+          <Item key={producto.id} producto={producto} />
         ))}
       </div>
     </div>

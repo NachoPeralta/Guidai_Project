@@ -29,7 +29,7 @@ const Item = ({ producto }) => {
                   </h5>
                   <p className="card-text">{producto.descripcionLarga}</p>
                   <br />
-                  <Link className="btn btn-primary" to={`/item/${producto.codigo}`}>
+                  <Link className="btn btn-primary" to={`/item/${producto.id}`}>
                     Ir al detalle
                   </Link>
                 </div>

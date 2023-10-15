@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react';
-
-import { productos } from '../../data/data';
-
 import ItemDetail from '../containers/ItemDetail';
 import { useParams } from 'react-router-dom';
+import { productServices } from '../../services/products';
 
 const ItemDetailContainer = () => {
   const [detalleProducto, setDetalleProducto] = useState({});
-  
-  const { codigo } = useParams();
+  const { id } = useParams();
+
   useEffect(() => {  
-    const product = productos.find((item) => item.codigo === parseInt(codigo));
-    if (product) {
-      setDetalleProducto(product);
-    } else {
-      console.log(`Producto con código ${codigo} no encontrado`);
-    }
-  }, [codigo]);
+    const fetchData = async () => {
+      try {
+        const product = await productServices.getProducto(id);
+        console.log('Datos del producto:', product);
+
+        if (product) {
+          setDetalleProducto(product);
+        } else {
+          console.log(`Producto con código ${id} no encontrado`);
+        }
+      } catch (error) {
+        console.error('Error al obtener el producto:', error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   return (
-    <div>{<ItemDetail {...detalleProducto} />}</div>
+    <div>{detalleProducto && <ItemDetail {...detalleProducto} />}</div>
   );
 };
 

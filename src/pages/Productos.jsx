@@ -1,12 +1,12 @@
 import React from "react";
 import ItemDetail from "../components/containers/ItemDetail";
 import ItemListContainer from "../components/containers/ItemListContainer";
-import { productServices } from "../services/productos";
+import { productServices } from "../services/products";
 
-export const Productos = ({ productId }) => {
-  if (productId) {
+export const Productos = ({ id }) => {
+  if (id) {
     // Si se proporciona un productId, obtén el producto correspondiente
-    const producto = productServices.getProductoById(productId);
+    const producto = productServices.getProducto(id);
 
     if (producto) {
       return <ItemDetail producto={producto} />;
