@@ -10,11 +10,11 @@ const ItemDetailContainer = () => {
   useEffect(() => {  
     const fetchData = async () => {
       try {
-        const product = await productServices.getProducto(id);
-        console.log('Datos del producto:', product);
+        const producto = await productServices.getProducto(id);
+        console.log('Datos del producto:', producto);
 
-        if (product) {
-          setDetalleProducto(product);
+        if (producto) {
+          setDetalleProducto(producto);
         } else {
           console.log(`Producto con código ${id} no encontrado`);
         }

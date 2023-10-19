@@ -7,7 +7,7 @@ import Header from "./components/layout/Header";
 import NavBar from "./components/layout/NavBar";
 import Home from "./pages/Home";
 import ItemDetailContainer from "./components/containers/ItemDetailContainer";
-import { CartProvider } from "./context/cart";
+import { CartProvider } from "./context/cartContext";
 import { Productos } from "./pages/Productos";
 import Carrito from "./pages/Carrito";
 

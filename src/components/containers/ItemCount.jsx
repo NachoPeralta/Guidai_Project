@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 
 const ItemCount = ({ stock, initial, onAdd }) => {
-  // Estado para mantener el valor numérico
   const [count, setCount] = useState(initial);
 
-  // Función para incrementar el valor
   const sumar = () => {
     if (count < stock) {
       setCount(count + 1);
     }
   };
 
-  // Función para decrementar el valor
   const restar = () => {
     if (count > 0) {
       setCount(count - 1);
@@ -32,7 +29,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
       <button
         className="btn btn-outline-primary btn-lg"
         disabled={count === 0 || stock === 0}
-        onClick={() => onAdd(count)}
+        onClick={() => onAdd(parseInt(count))}
       >
         Comprar
       </button>

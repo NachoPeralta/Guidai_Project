@@ -1,5 +1,5 @@
 import React from "react";
-import { useCart } from "../../context/cart";
+import { useCart } from "../../context/cartContext";
 import ItemCount from "../containers/ItemCount";
 
 const ItemDetail = (producto) => {
@@ -7,7 +7,10 @@ const ItemDetail = (producto) => {
   const { agregarAlCarrito } = useCart();
 
   const onAdd = (cantidad) => {
-    agregarAlCarrito({ ...producto, cantidad });
+    
+    console.log("onAdd cantidad:" + cantidad);
+
+    agregarAlCarrito({ producto, cantidad });
   };
 
   return (
