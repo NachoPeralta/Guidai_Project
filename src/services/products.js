@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where, serverTimestamp  } from "firebase/firestore";
 import { productos } from "../data/data";
 
 const getProducto = async (id) => {
@@ -48,26 +48,26 @@ const getProductosCategoria = async (categoria) => {
     const db = getFirestore();
     const productsRef = collection(db, "productos");
     const q = query(productsRef, where("categoria", "==", categoria));
-  
+
     try {
-      const querySnapshot = await getDocs(q);
-  
-      const productos = [];
-  
-      querySnapshot.forEach((doc) => {
-        productos.push({
-          id: doc.id,
-          ...doc.data(),
+        const querySnapshot = await getDocs(q);
+
+        const productos = [];
+
+        querySnapshot.forEach((doc) => {
+            productos.push({
+                id: doc.id,
+                ...doc.data(),
+            });
         });
-      });
-  
-      return productos;
+
+        return productos;
     } catch (error) {
-      console.error("Error al obtener productos por categoría:", error);
-      return [];
+        console.error("Error al obtener productos por categoría:", error);
+        return [];
     }
-  };
-  
+};
+
 
 
 //Esta funcion es para agregar los productos de mi mock por unica vez
@@ -88,4 +88,31 @@ const cargarProductos = async () => {
     }
 };
 
-export const productServices = { getProducto, getProductos, cargarProductos, getProductosCategoria };
+const finalizarCompra = async (ordenCompra) => {
+    const db = getFirestore();
+    const ordersCollection = collection(db, "orders");
+
+    try {
+        await addDoc(ordersCollection, {
+            buyer: {
+                name: ordenCompra.buyer.name,
+                email: ordenCompra.buyer.email,
+                phone: ordenCompra.buyer.phone,
+            },
+            items: ordenCompra.items.map((item) => ({
+                id: item.id,
+                title: item.title,
+                quantity: item.quantity,
+                price: item.price,
+            })),
+            date: serverTimestamp(),
+            total: ordenCompra.total,
+        });
+        
+    } catch (error) {
+        console.error("Error al agregar la orden de compra:", error);
+    }
+
+};
+
+export const productServices = { getProducto, getProductos, cargarProductos, getProductosCategoria, finalizarCompra };

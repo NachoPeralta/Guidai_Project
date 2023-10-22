@@ -11,8 +11,7 @@ const ItemDetailContainer = () => {
     const fetchData = async () => {
       try {
         const producto = await productServices.getProducto(id);
-        console.log('Datos del producto:', producto);
-
+        
         if (producto) {
           setDetalleProducto(producto);
         } else {

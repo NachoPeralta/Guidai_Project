@@ -8,9 +8,6 @@ export const CartProvider = ({ children }) => {
   const agregarAlCarrito = (item) => {
     const { producto, cantidad } = item;
 
-    console.log("agregarAlCarrito en cartContext producto:" + producto);
-    console.log("agregarAlCarrito en cartContext cantidad:" + cantidad);
-
     const existeProducto = carrito.find((item) => item.producto.id === producto.id);
     
     if (existeProducto) {
@@ -34,8 +31,12 @@ export const CartProvider = ({ children }) => {
     setCarrito(nuevoCarrito);
   };
 
+  const vaciarCarrito = () => {
+    setCarrito([]);
+  };
+    
   return (
-    <CartContext.Provider value={{ carrito, agregarAlCarrito, quitarDelCarrito }}>
+    <CartContext.Provider value={{ carrito, agregarAlCarrito, quitarDelCarrito, vaciarCarrito }}>
       {children}
     </CartContext.Provider>
   );
