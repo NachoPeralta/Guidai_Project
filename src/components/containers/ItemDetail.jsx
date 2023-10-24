@@ -8,7 +8,6 @@ const ItemDetail = (producto) => {
   const { agregarAlCarrito } = useCart();
 
   const onAdd = (cantidad) => {
-    console.log("onAdd cantidad:" + cantidad);
     agregarAlCarrito({ producto, cantidad });
   };
 

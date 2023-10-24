@@ -6,18 +6,9 @@ import { Modal, Button, Form, Table } from "react-bootstrap";
 const Carrito = () => {
   const { carrito, quitarDelCarrito, vaciarCarrito } = useContext(CartContext);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
   const [show, setShow] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  
-  const handleClose = () => {
-    alert("dentro de handleClose");
-    setShow(false);
-    setModalMessage("");
-  };
-  const handleShow = () => {
-    alert("dentro de handleShow");
-    setShow(true);
-  };
+  const [modalMessage, setModalMessage] = useState("Procesando su Orden...");
 
   // datos del comprador
   const [buyerInfo, setBuyerInfo] = useState({
@@ -46,10 +37,16 @@ const Carrito = () => {
     return suma;
   };
 
+  const handleClose = () => {
+    setShow(false);
+    setModalMessage("Procesando su Orden...");
+  };
+  const handleShow = () => {
+    setShow(true);
+  };
+
   const enviarOrdenCompra = (e) => {
     e.preventDefault();
-    
-    alert("entro en enviarOrdenCompra");
 
     const ordenCompra = {
       buyer: {
@@ -69,16 +66,17 @@ const Carrito = () => {
     productServices
       .finalizarCompra(ordenCompra)
       .then(() => {
-        
-        alert("Compra exitosa, tengo que mostrar modal");
-
         // Éxito en la compra
-        setModalMessage("Su compra se ha realizado con éxito. ¡Gracias por confiar en nosotros!");
+        setModalMessage(
+          "Su compra se ha realizado con éxito. ¡Gracias por confiar en nosotros!"
+        );
         handleShow();
       })
       .catch((error) => {
         // Error en la compra
-        setModalMessage(`Se ha producido un error al procesar la compra: ${error.message}`);
+        setModalMessage(
+          `Se ha producido un error al procesar la compra: ${error.message}`
+        );
         handleShow();
       });
 
@@ -92,18 +90,6 @@ const Carrito = () => {
         <p>El carrito está vacío</p>
       ) : (
         <>
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Confirmación de Compra</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>{modalMessage}</Modal.Body>
-            <Modal.Footer>
-              <Button variant="primary" onClick={handleClose}>
-                Cerrar
-              </Button>
-            </Modal.Footer>
-          </Modal>
-
           <Table striped bordered>
             <thead>
               <tr>
@@ -180,7 +166,9 @@ const Carrito = () => {
             </div>
           )}
           <br />
-          <h4 style={{textAlign:"right"}}>Total Pesos Uruguayos: ${calcularTotal()}</h4>
+          <h4 style={{ textAlign: "right" }}>
+            Total Pesos Uruguayos: ${calcularTotal()}
+          </h4>
           <br />
         </>
       )}
@@ -197,6 +185,19 @@ const Carrito = () => {
       >
         Cancelar Compra
       </Button>
+      <br />
+      
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmación de Compra</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

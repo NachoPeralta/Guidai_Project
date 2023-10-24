@@ -23,7 +23,6 @@ export const CartProvider = ({ children }) => {
     } else {
       setCarrito([...carrito, { producto, cantidad }]);
     }
-    console.log("Carrito actualizado:", carrito);
   };
 
   const quitarDelCarrito = (id) => {
