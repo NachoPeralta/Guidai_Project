@@ -6,8 +6,9 @@ const Home = () => {
     <div
       style={{
         textAlign: "center",
-        width: "100%",
+        width: "60%",
         margin: "auto",
+        marginTop: "70px",
         padding: "0 15%",
         backgroundSize: "cover",
       }}
@@ -18,7 +19,7 @@ const Home = () => {
         style={{
           display: "block",
           margin: "auto",
-          maxWidth: "40%",          
+          maxWidth: "40%",
         }}
       ></img>
       <p

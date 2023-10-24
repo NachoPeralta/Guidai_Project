@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, ButtonGroup } from "react-bootstrap";
 
 const ItemCount = ({ stock, initial, onAdd }) => {
   const [count, setCount] = useState(initial);
@@ -14,25 +15,28 @@ const ItemCount = ({ stock, initial, onAdd }) => {
       setCount(count - 1);
     }
   };
-  
+
   return (
     <>
-      <div>
-        <button className="btn btn-primary btn-lg" onClick={restar}>
+      <ButtonGroup>
+        <Button variant="primary" size="lg" onClick={restar}>
           -
-        </button>
-        <span className="btn btn-lg">{count}</span>
-        <button className="btn btn-primary btn-lg" onClick={sumar}>
+        </Button>
+        <Button variant="bg-light" size="lg">
+          {count}
+        </Button>
+        <Button variant="primary" size="lg" onClick={sumar}>
           +
-        </button>
-      </div>
-      <button
-        className="btn btn-outline-primary btn-lg"
+        </Button>
+      </ButtonGroup>
+      <Button
+        variant="outline-primary"
+        size="lg"
         disabled={count === 0 || stock === 0}
         onClick={() => onAdd(parseInt(count))}
       >
         Comprar
-      </button>
+      </Button>
     </>
   );
 };

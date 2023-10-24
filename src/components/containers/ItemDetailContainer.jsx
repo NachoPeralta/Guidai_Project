@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import ItemDetail from '../containers/ItemDetail';
 import { useParams } from 'react-router-dom';
 import { productServices } from '../../services/products';
+import { Container } from 'react-bootstrap';
+import ItemDetail from '../containers/ItemDetail';
 
 const ItemDetailContainer = () => {
   const [detalleProducto, setDetalleProducto] = useState({});
   const { id } = useParams();
 
-  useEffect(() => {  
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const producto = await productServices.getProducto(id);
-        
+
         if (producto) {
           setDetalleProducto(producto);
         } else {
@@ -26,7 +27,9 @@ const ItemDetailContainer = () => {
   }, [id]);
 
   return (
-    <div>{detalleProducto && <ItemDetail {...detalleProducto} />}</div>
+    <Container fluid style={{ backgroundColor: "#f8f9fa" }}>
+      {detalleProducto && <ItemDetail {...detalleProducto} />}
+    </Container>
   );
 };
 

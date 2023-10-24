@@ -1,25 +1,21 @@
 import React from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import ItemList from "./ItemList";
 
 const ItemListContainer = ({ greeting }) => {
   return (
-    <>
-    <div
-      style={{
-        color: "rgb(93, 37, 146)",
-        textAlign: "center",
-        width: "100%",
-        margin: "auto",
-        padding: "0 15%",
-        backgroundSize: "cover",
-      }}
-    >
-      <h3>{greeting}</h3>
-      
-      <ItemList/>
-      
-    </div>
-    </>
+    <Container fluid style={{ backgroundColor: "#f8f9fa" }}>
+      <Row className="justify-content-center">
+        <Col md={10}>
+          <Card bg="bg-transparent" text="text-primary" style={{ backgroundColor: "#f8f9fa", border:"none" }} className="p-4">
+            <Card.Body>
+              <h2>{greeting}</h2>
+              <ItemList />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

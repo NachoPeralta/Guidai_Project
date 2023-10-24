@@ -1,11 +1,23 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../context/cartContext";
 import { productServices } from "../services/products";
-import { Modal } from "bootstrap";
+import { Modal, Button, Form, Table } from "react-bootstrap";
 
 const Carrito = () => {
   const { carrito, quitarDelCarrito, vaciarCarrito } = useContext(CartContext);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [show, setShow] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  
+  const handleClose = () => {
+    alert("dentro de handleClose");
+    setShow(false);
+    setModalMessage("");
+  };
+  const handleShow = () => {
+    alert("dentro de handleShow");
+    setShow(true);
+  };
 
   // datos del comprador
   const [buyerInfo, setBuyerInfo] = useState({
@@ -36,6 +48,8 @@ const Carrito = () => {
 
   const enviarOrdenCompra = (e) => {
     e.preventDefault();
+    
+    alert("entro en enviarOrdenCompra");
 
     const ordenCompra = {
       buyer: {
@@ -52,21 +66,23 @@ const Carrito = () => {
       total: calcularTotal(),
     };
 
-    productServices.finalizarCompra(ordenCompra)
-    .then(() => {
-      const confirmationModal = new Modal(document.getElementById('confirmationModal'));
-      document.querySelector('#confirmationModal .modal-title').textContent = 'Compra Exitosa';
-      document.querySelector('#confirmationModal .modal-body').textContent = 'Su compra se ha realizado con éxito. \n Gracias por confiar en nosotros!!';
-      confirmationModal.show();
-    })
-    .catch((error) => {
-      const errorModal = new Modal(document.getElementById('confirmationModal'));
-      document.querySelector('#confirmationModal .modal-title').textContent = 'Error en la Compra';
-      document.querySelector('#confirmationModal .modal-body').textContent = 'Se ha producido un error al procesar la compra: ' + error.message;
-      errorModal.show();
-    });
+    productServices
+      .finalizarCompra(ordenCompra)
+      .then(() => {
+        
+        alert("Compra exitosa, tengo que mostrar modal");
 
-  vaciarCarrito();
+        // Éxito en la compra
+        setModalMessage("Su compra se ha realizado con éxito. ¡Gracias por confiar en nosotros!");
+        handleShow();
+      })
+      .catch((error) => {
+        // Error en la compra
+        setModalMessage(`Se ha producido un error al procesar la compra: ${error.message}`);
+        handleShow();
+      });
+
+    vaciarCarrito();
   };
 
   return (
@@ -76,43 +92,19 @@ const Carrito = () => {
         <p>El carrito está vacío</p>
       ) : (
         <>
-          <div
-            className="modal fade"
-            id="confirmationModal"
-            tabIndex="-1"
-            aria-labelledby="confirmationModalLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="confirmationModalLabel">
-                    Confirmación de Compra
-                  </h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    data-bs-dismiss="modal"
-                  >
-                    Cerrar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Confirmación de Compra</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{modalMessage}</Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={handleClose}>
+                Cerrar
+              </Button>
+            </Modal.Footer>
+          </Modal>
 
-          <table className="table table-striped">
+          <Table striped bordered>
             <thead>
               <tr>
                 <th>Producto</th>
@@ -132,89 +124,79 @@ const Carrito = () => {
                   <td>{item.cantidad}</td>
                   <td>${item.producto.precio * item.cantidad}</td>
                   <td>
-                    <button
-                      className="btn btn-danger"
+                    <Button
+                      variant="danger"
                       onClick={() => {
                         quitarDelCarrito(item.producto.id);
                       }}
                     >
                       Quitar
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
-          </table>
-          <br />
+          </Table>
 
           {mostrarFormulario && (
             <div>
-              <form onSubmit={enviarOrdenCompra}>
+              <Form>
                 <h3>Orden de Compra</h3>
-                <div className="form-group">
-                  <label htmlFor="name">Nombre</label>
-                  <input
+                <Form.Group>
+                  <Form.Label htmlFor="name">Nombre</Form.Label>
+                  <Form.Control
                     type="text"
-                    className="form-control"
                     id="name"
                     name="name"
                     value={buyerInfo.name}
                     onChange={handleInputChange}
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="phone">Teléfono</label>
-                  <input
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label htmlFor="phone">Teléfono</Form.Label>
+                  <Form.Control
                     type="text"
-                    className="form-control"
                     id="phone"
                     name="phone"
                     value={buyerInfo.phone}
                     onChange={handleInputChange}
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label htmlFor="email">Email</Form.Label>
+                  <Form.Control
                     type="email"
-                    className="form-control"
                     id="email"
                     name="email"
                     value={buyerInfo.email}
                     onChange={handleInputChange}
                   />
-                </div>
+                </Form.Group>
                 <br />
-                <button
-                 type="submit"
-                 className="btn btn-primary"
-                 data-bs-toggle="modal"
-                 data-bs-target="#confirmationModal"
-                >
+                <Button variant="primary" onClick={enviarOrdenCompra}>
                   Enviar Orden de Compra
-                </button>
-              </form>
-              <br />
-              <br />
+                </Button>
+              </Form>
             </div>
           )}
-
-          <h4>Total Pesos Uruguayos: ${calcularTotal()}</h4>
+          <br />
+          <h4 style={{textAlign:"right"}}>Total Pesos Uruguayos: ${calcularTotal()}</h4>
           <br />
         </>
       )}
-      <button className="btn btn-primary" onClick={toggleFormulario}>
-        {mostrarFormulario ? "Cerrar Formulario" : "Finalizar Compra"}
-      </button>
 
-      <button
-        className="btn btn-danger"
+      <Button variant="primary" onClick={toggleFormulario}>
+        {mostrarFormulario ? "Cerrar Formulario" : "Finalizar Compra"}
+      </Button>
+
+      <Button
+        variant="danger"
         onClick={() => {
           vaciarCarrito();
         }}
       >
         Cancelar Compra
-      </button>
+      </Button>
     </div>
   );
 };

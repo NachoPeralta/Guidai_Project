@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Item from "./Item";
 import { useParams } from "react-router-dom";
 import { productServices } from "../../services/products";
+import { Container, Row, Col } from "react-bootstrap";
+import Item from "./Item";
 
 const ItemList = () => {
   const [loadedProductos, setLoadedProductos] = useState([]);
@@ -26,13 +27,15 @@ const ItemList = () => {
   }, [categoria]);
 
   return (
-    <div>
-      <div>
+    <Container>
+      <Row>
         {loadedProductos.map((producto) => (
-          <Item key={producto.id} producto={producto} />
+          <Col key={producto.id} md={12}>
+            <Item producto={producto} />
+          </Col>
         ))}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 

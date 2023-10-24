@@ -1,44 +1,41 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
+import { Card, Col, Row, Image, Button } from "react-bootstrap";
 
 const Item = ({ producto }) => {
   return (
-    <div className="row">
-      <div className="slideInFromRight col-lg-12">
-        <div className="card mb-4" style={{ height: "100%" }}>
-          <div className="row g-0">
-            <div className="imagenProducto col-md-4">
-              <img
+    <>
+    <Row className="row">
+      <Col lg={12} className="slideInFromRight">
+        <Card className="mb-4" style={{ height: "100%" }}>
+          <Row className="g-0">
+            <Col md={2} className="imagenProducto">
+              <Image
                 src={producto.img}
-                className="card-img-top"
                 alt={producto.descripcionCorta}
+                fluid
               />
-            </div>
-            <div className="col-md-8">
-              <div
-                className="card-body d-flex flex-column justify-content-between"
-                style={{ height: "100%" }}
-              >
+            </Col>
+            <Col md={8}>
+              <Card.Body className="d-flex flex-column justify-content-between" style={{ height: "100%" }}>
                 <div>
-                  <h5 className="card-title">
+                  <Card.Title style={{fontSize:"24px"}}>
                     {producto.categoria} - Aroma: {producto.descripcionCorta}
-                  </h5>
-                  <h5 className="card-title">
-                    Precio UYU $: {producto.precio}
-                  </h5>
-                  <p className="card-text">{producto.descripcionLarga}</p>
+                  </Card.Title>
                   <br />
-                  <Link className="btn btn-primary" to={`/item/${producto.id}`}>
-                    Ir al detalle
+                  <Card.Title style={{fontSize:"20px"}}>Precio UYU $: {producto.precio}</Card.Title>                  
+                  <Link to={`/item/${producto.id}`}>
+                    <Button variant="primary">Ir al detalle</Button>
                   </Link>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              </Card.Body>
+            </Col>
+          </Row>
+        </Card>
+      </Col>
+    </Row>
+    <br />
+    </>
   );
 };
 

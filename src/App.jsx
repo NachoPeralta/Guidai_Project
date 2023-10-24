@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+//import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import "./style/main.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/layout/Header";
@@ -17,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <NavBar />
-        <Routes>
+        <Routes >
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Productos />} />
           <Route path="/products/categoria/:categoria" element={<Productos />} />
